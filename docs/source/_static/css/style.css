@@ -1,0 +1,23 @@
+.wy-nav-content {
+  max-width: 1200px;
+}
+
+.wy-side-nav-search {
+  background: #4494c9;
+  border-right: 1px solid #283340;
+}
+
+.wy-menu-vertical a:hover {
+  background-color: #222222;
+}
+
+.wy-menu-vertical a:active {
+  background-color: #e2980d;
+}
+
+.wy-nav-side {
+  background: #313131
+}
+
+.wy-nav-side a {
+}
