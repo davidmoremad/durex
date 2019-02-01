@@ -125,15 +125,10 @@ class EC2(object):
         used_insecure_sgs = self.get_used_security_groups(insecure_sgs, regions)
         return used_insecure_sgs
 
-    def unused_security_groups(self, regions=None):
-        secgroups = self.ec2.get_secgroups(regions=regions)
-        instances = self.ec2.get_instances(regions=regions)
-
-        all_sgs = set([sg['GroupName'] for sg in secgroups])
-        ec2_sgs = set([sg['GroupName'] for instance in instances for sg in instance['SecurityGroups']])
-        unused = all_sgs - ec2_sgs
-
-        return unused
+    def instances_with_scheduled_events(self, regions=None):
+        events = ['instance-reboot', 'system-reboot', 'system-maintenance', 'instance-retirement', 'instance-stop']
+        instances = self.ec2.get_instances_status_by({'event': events}, regions=regions)
+        return instances
 
 
     def __init__(self, client):
