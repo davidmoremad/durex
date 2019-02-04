@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import re
 from botocore.exceptions import ClientError
-from durex.helpers import ThreadPool
+from .base import Base
+from durex.decorators import low, medium, high, critical
 
-class IAM(object):
+class IAM(Base):
 
+    @low 
     def inactive_access_keys(self):
         users = self.iam.get_users()
         unused_keys = []
@@ -20,10 +22,10 @@ class IAM(object):
 
         return unused_keys
 
+    @low
     def inactive_users(self):
         return self.iam.get_inactive_users()
 
 
     def __init__(self, client):
         self.iam = client.service.iam
-        self.pool = ThreadPool(30)

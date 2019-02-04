@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 import re
+from .base import Base
 from botocore.exceptions import ClientError
-from durex.helpers import ThreadPool
+from durex.decorators import low, medium, high, critical
 
-class S3(object):
+class S3(Base):
 
     ACL_ANY_USER = 'http://acs.amazonaws.com/groups/global/AllUsers'
     ACL_AWS_USER = 'http://acs.amazonaws.com/groups/global/AuthenticatedUsers'
 
     
-    def bucket_public_access(self, permission):
+    def _bucket_public_access(self, permission):
         '''Get public buckets to internet or AWS authenticated users
         
         Args:
             permission (str): Valid values: READ, WRITE, READ_ACP, WRITE_ACP, FULL_CONTROL
         
         Returns:
-            list: List of public buckets
+            list: Public buckets
         '''
         public_buckets = []
         buckets = self.s3.get_buckets()
@@ -43,22 +44,28 @@ class S3(object):
         self.pool.wait_completion()
 
         return public_buckets
-        
+
+    @critical
     def bucket_public_fullcontrol_access(self):
-        return self.bucket_public_access('FULL_CONTROL')
+        return self._bucket_public_access('FULL_CONTROL')
 
+    @critical
     def bucket_public_read_access(self):
-        return self.bucket_public_access('READ')
+        return self._bucket_public_access('READ')
 
+    @critical
     def bucket_public_readacp_access(self):
-        return self.bucket_public_access('READ_ACP')
+        return self._bucket_public_access('READ_ACP')
 
+    @critical
     def bucket_public_write_access(self):
-        return self.bucket_public_access('WRITE')
+        return self._bucket_public_access('WRITE')
 
+    @critical
     def bucket_public_writeacp_access(self):
-        return self.bucket_public_access('WRITE_ACP')
+        return self._bucket_public_access('WRITE_ACP')
 
+    @high
     def bucket_encryption(self):
         no_encryption_buckets = []
         buckets = self.s3.get_buckets()
@@ -77,4 +84,3 @@ class S3(object):
 
     def __init__(self, client):
         self.s3 = client.service.s3
-        self.pool = ThreadPool(30)
