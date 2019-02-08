@@ -8,4 +8,4 @@ class Base(object):
     def get_tests(self):
         methods = [func for func in dir(self) if callable(getattr(self, func)) and not func.startswith('_')]
         tests = filter(lambda x: hasattr(getattr(self, x), 'severity'), methods)
-        return map(lambda x: {'Method': x, 'Description': getattr(self, x).description, 'Severity': getattr(self, x).severity} ,tests)
+        return map(lambda x: {'Method':x, 'Name': getattr(self, x).name, 'Description': getattr(self, x).description, 'Severity': getattr(self, x).severity}, tests)
