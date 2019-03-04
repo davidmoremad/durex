@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../'))
 # -- Project information -----------------------------------------------------
 
 project = 'durex'
-copyright = '2019, David Amrani Hernandez'
+copyright = '2019, Telefonica Digital'
 author = 'David Amrani Hernandez'
 
 # The short X.Y version
