@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 u"""
-Copyright 2018 David Amrani Hernandez
+Copyright 2018 David Amrani Hernandez (ElevenPaths - Telefonica)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ setup(
         "Source Code": "https://github.com/davidmoremad/durex",
     },
     description='Durex is a tool to improve security, performance and reduce costs of your Amazon Web Services accounts',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     keywords="durex amazon aws security costs performance management secdevops",
     license='Apache 2.0',
     classifiers=[

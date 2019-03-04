@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+def recommendation(func, description=None):
+    func.severity = 'recommendation'
+    func.description = func.__doc__ or str()
+    name = func.__name__.replace('_',' ')
+    func.name = name[0].upper() + name[1:]
+    return func
+
 def low(func, description=None):
     func.severity = 'low'
     func.description = func.__doc__ or str()
